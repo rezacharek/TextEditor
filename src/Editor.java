@@ -20,16 +20,18 @@ public class Editor extends JFrame
 
     private void startLayout()
     {       
-        JTextField writingField = new JTextField();
+        Color writingFieldColor = new Color(247, 236, 166);
+
+
+        JTextArea writingField = new JTextArea(); // TextArea
+        writingField.setName("TextArea");
         writingField.setBounds(20,20, 410, 240);
-        // writingField.addActionListener(enter);
+        writingField.setBackground(writingFieldColor);
         add(writingField);
 
-        Color mainInterfaceColor = new Color(247, 236, 166);
         JPanel mainInterface = new JPanel();
         mainInterface.setBounds(20,20, 410, 240);
         mainInterface.setLayout(new BorderLayout());
-        mainInterface.setBackground(mainInterfaceColor);
         add(mainInterface);
     }
 

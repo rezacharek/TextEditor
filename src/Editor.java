@@ -50,7 +50,6 @@ public class Editor extends JFrame
                 BufferedWriter bw = new BufferedWriter(writer);
                 textArea.write(bw);
                 bw.close();
-                textArea.setText("");
                 textArea.requestFocus();
 
 

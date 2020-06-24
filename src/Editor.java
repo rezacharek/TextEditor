@@ -2,7 +2,10 @@ package editor;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.*;  
+import java.awt.event.*; 
+import java.io.*; 
+import java.awt.Desktop;
+import javax.swing.text.*;
 
 public class Editor extends JFrame
 {   
@@ -32,8 +35,60 @@ public class Editor extends JFrame
         add(textField);
         JButton SaveButton = new JButton("SaveButton");
         add(SaveButton, BorderLayout.NORTH);
+
+        SaveButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+            try
+            {
+                String fileName;
+                fileName = textField.getText();
+                // System.out.println(fileName);
+
+                FileWriter writer = new FileWriter(fileName);
+                BufferedWriter bw = new BufferedWriter(writer);
+                textArea.write(bw);
+                bw.close();
+                textArea.setText("");
+                textArea.requestFocus();
+
+
+            }
+            catch(Exception e2) { System.out.println(e2);}
+            }
+        }
+        );
+
         JButton LoadButton = new JButton("LoadButton");
         add(LoadButton, BorderLayout.NORTH);
+        LoadButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+            try
+            {   
+                Desktop desktop = Desktop.getDesktop();
+                String fileName;
+                fileName = textField.getText();
+                // System.out.println(fileName);
+
+                FileReader reader = new FileReader(fileName);
+                BufferedReader br = new BufferedReader(reader);
+                textArea.read(br, null);
+                br.close();
+                textArea.requestFocus();
+
+            }
+            catch(Exception e2) { System.out.println(e2);}
+        }
+        }
+        );
+
+
+
+        
+
 
         // add(new JButton("SaveButton"), BorderLayout.NORTH);
         
@@ -63,7 +118,7 @@ public class Editor extends JFrame
     }
 
 
-    public static void main(String[] argc)
+    public static void main(String []argc)
     {
         new Editor();
     }

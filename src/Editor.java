@@ -79,7 +79,10 @@ public class Editor extends JFrame
                 textArea.requestFocus();
 
             }
-            catch(Exception e2) { System.out.println(e2);}
+            catch(Exception e2) { 
+                textArea.setText("");
+                FilenameField.setText("");
+            }
         }
         }
         );

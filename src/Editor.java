@@ -23,6 +23,10 @@ public class Editor extends JFrame
         setVisible(true);
     }
 
+    // public void Save();
+
+    // public void Load();
+
     private void startLayout()
     {       
         Color writingFieldColor = new Color(247, 236, 166);
@@ -81,43 +85,55 @@ public class Editor extends JFrame
             }
             catch(Exception e2) { 
                 textArea.setText("");
-                FilenameField.setText("");
+                // FilenameField.setText("");
             }
         }
         }
         );
-
-
-
-        
-
-
-        // add(new JButton("SaveButton"), BorderLayout.NORTH);
-        
-        
-        // SaveButton.addActionListener(new ActionEvent() {
-        //     // @Override
-        //     public void actionPerformed(ActionEvent e)
-        //     {
-        //         Object source = e.getSource();
-        //         if (source instanceof JButton) {
-        //             JButton btn = (JButton)source;
-        //             String butSrcTxt = btn.getText();
-        //         }
-
-        //     }
-        // }
-        // );
-        // String number = SaveButton.getText();
-        
-        
         scrollableTextArea.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);  
         scrollableTextArea.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);  
   
         getContentPane().add(scrollableTextArea); 
 
+        Menu();
+
         
     }
+
+    public void Menu()
+    {
+        JMenuBar menuBar = new JMenuBar();
+        setJMenuBar(menuBar);
+        JMenu fileMenu = new JMenu("File");
+        fileMenu.setMnemonic(KeyEvent.VK_F);
+        menuBar.add(fileMenu);
+
+        JMenuItem MenuLoad = new JMenuItem("Load");
+        MenuLoad.setName("MenuLoad");
+
+        JMenuItem MenuSave = new JMenuItem("Save");
+        MenuSave.setName("MenuSave");
+
+        JMenuItem MenuExit = new JMenuItem("Exit");
+        MenuExit.setName("MenuExit");
+
+        fileMenu.add(MenuLoad);
+        fileMenu.add(MenuSave);
+        fileMenu.addSeparator();
+        fileMenu.add(MenuExit);
+
+        MenuExit.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent event)
+            {
+                System.exit(0);
+            }
+        }
+        
+        );
+
+    }
+
 
 
     public static void main(String []argc)

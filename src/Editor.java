@@ -127,7 +127,6 @@ public class Editor extends JFrame
         }
         );
 
-
         JMenuItem MenuSave = new JMenuItem("Save");
         MenuSave.setName("MenuSave");
         MenuSave.addActionListener(new ActionListener()
@@ -151,13 +150,6 @@ public class Editor extends JFrame
 
         JMenuItem MenuExit = new JMenuItem("Exit");
         MenuExit.setName("MenuExit");
-        
-
-        fileMenu.add(MenuLoad);
-        fileMenu.add(MenuSave);
-        fileMenu.addSeparator();
-        fileMenu.add(MenuExit);
-
         MenuExit.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent event)
@@ -167,6 +159,13 @@ public class Editor extends JFrame
         }
         
         );
+        
+        fileMenu.add(MenuLoad);
+        fileMenu.add(MenuSave);
+        fileMenu.addSeparator();
+        fileMenu.add(MenuExit);
+
+        
     }
 
     public static void main(String []argc)

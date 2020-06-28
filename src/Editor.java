@@ -9,6 +9,9 @@ import javax.swing.text.*;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileSystemView;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.ArrayList;
 
 public class Editor extends JFrame
 {   
@@ -155,27 +158,87 @@ public class Editor extends JFrame
         });
     }
 
+    public void Search(JButton SearchB, JButton Left, JButton Right)
+    {
+        ArrayList<Integer> Start = new ArrayList<Integer>();
+        ArrayList<Integer> End = new ArrayList<Integer>();
+
+        SearchB.addActionListener(new ActionListener()
+        {
+
+            public void actionPerformed(ActionEvent event)
+            {
+                int length = 0;
+                String stringToSearch = textField.getText();
+                Pattern pattern = Pattern.compile(stringToSearch);
+                Matcher matcher = pattern.matcher(textArea.getText());
+
+                while (matcher.find()) {
+                    Start.add(matcher.start());
+                    End.add(matcher.end());
+                    length += 1;
+                    // textArea.setCaretPosition( matcher.end());
+                    // textArea.select(matcher.start(), matcher.end());
+                    // textArea.grabFocus();
+                }
+
+                // int current = 0;
+
+
+                // textArea.setCaretPosition( Start.get(current));
+                // textArea.select(Start.get(current), End.get(current));
+                // textArea.grabFocus();
+
+                // Left.
+
+                
+            }
+            
+
+            
+            
+        });
+        
+
+    }
+
+
     private void startLayout()
     {       
         getContentPane().setLayout(new FlowLayout());
         textArea = new JTextArea(15,35);
         scrollableTextArea = new JScrollPane(textArea);
 
-
-        textField = new JTextField(10);
-        add(textField);
         Icon SaveIcon = new ImageIcon("iconfinder_floppy_285657(1).png");
         JButton SaveButton = new JButton(SaveIcon);
         add(SaveButton, BorderLayout.NORTH);
         Save(SaveButton);
-
 
         Icon LoadIcon = new ImageIcon("24-24-b4aca2646abdbb1f4284919e3d1198e6.png");
         JButton LoadButton = new JButton(LoadIcon);
         add(LoadButton, BorderLayout.NORTH);
         Load(LoadButton);
         
-        
+        textField = new JTextField(10);
+        add(textField);
+
+        Icon SearchIcon = new ImageIcon("search-icon.png");
+        JButton SearchButton = new JButton(SearchIcon);
+        Search(SearchButton);
+        add(SearchButton, BorderLayout.NORTH);
+
+        Icon LeftIcon = new ImageIcon("left.png");
+        JButton LeftButton = new JButton(LeftIcon);
+        add(LeftButton, BorderLayout.NORTH);
+
+        Icon RightIcon = new ImageIcon("right.png");
+        JButton RightButton = new JButton(RightIcon);
+        add(RightButton, BorderLayout.NORTH);
+
+        // JCheckBox UseRegex = new JCheckBox("Regex");
+        // add(UseRegex, BorderLayout.NORTH);
+
+
         scrollableTextArea.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);  
         scrollableTextArea.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);  
         getContentPane().add(scrollableTextArea); 

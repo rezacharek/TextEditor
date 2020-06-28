@@ -37,9 +37,14 @@ public class Editor extends JFrame
 
         JTextField textField = new JTextField(10);
         add(textField);
-        JButton SaveButton = new JButton("SaveButton");
+        Icon icon = new ImageIcon("iconfinder_floppy_285657(1).png");
+        JButton SaveButton = new JButton(icon);
+        SaveButton.setPreferredSize(new Dimension(20, 20));
+        // SaveButton.setIcon(new ImageIcon(this.getClass().getResource("/src/001-floppy-disk.png")));
+
         add(SaveButton, BorderLayout.NORTH);
 
+    
         SaveButton.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)

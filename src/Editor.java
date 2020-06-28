@@ -9,42 +9,32 @@ import javax.swing.text.*;
 
 public class Editor extends JFrame
 {   
+    private static final int WIDTH = 350;
+    private static final int HEIGHT = 450;
+
     public Editor()
     {
-        // super("Text Editor v1.0");
         final JFrame frame = new JFrame("Text Editor v1.0");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(450,320);
+        setSize(HEIGHT,WIDTH);
         setLocationRelativeTo(null);
-
         startLayout();
-
-        // setLayout();
         setVisible(true);
     }
 
-    // public void Save();
-
-    // public void Load();
-
     private void startLayout()
     {       
-        Color writingFieldColor = new Color(247, 236, 166);
 
         getContentPane().setLayout(new FlowLayout());
         JTextArea textArea = new JTextArea(15,35);
         JScrollPane scrollableTextArea = new JScrollPane(textArea);
 
+
         JTextField textField = new JTextField(10);
         add(textField);
-        Icon icon = new ImageIcon("iconfinder_floppy_285657(1).png");
-        JButton SaveButton = new JButton(icon);
-        SaveButton.setPreferredSize(new Dimension(20, 20));
-        // SaveButton.setIcon(new ImageIcon(this.getClass().getResource("/src/001-floppy-disk.png")));
-
+        Icon SaveIcon = new ImageIcon("iconfinder_floppy_285657(1).png");
+        JButton SaveButton = new JButton(SaveIcon);
         add(SaveButton, BorderLayout.NORTH);
-
-    
         SaveButton.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -53,22 +43,20 @@ public class Editor extends JFrame
             {
                 String fileName;
                 fileName = textField.getText();
-                // System.out.println(fileName);
-
                 FileWriter writer = new FileWriter(fileName);
                 BufferedWriter bw = new BufferedWriter(writer);
                 textArea.write(bw);
                 bw.close();
                 textArea.requestFocus();
-
-
             }
             catch(Exception e2) { System.out.println(e2);}
             }
         }
         );
 
-        JButton LoadButton = new JButton("LoadButton");
+
+        Icon LoadIcon = new ImageIcon("24-24-b4aca2646abdbb1f4284919e3d1198e6.png");
+        JButton LoadButton = new JButton(LoadIcon);
         add(LoadButton, BorderLayout.NORTH);
         LoadButton.addActionListener(new ActionListener()
         {
@@ -79,7 +67,6 @@ public class Editor extends JFrame
                 Desktop desktop = Desktop.getDesktop();
                 String fileName;
                 fileName = textField.getText();
-                // System.out.println(fileName);
 
                 FileReader reader = new FileReader(fileName);
                 BufferedReader br = new BufferedReader(reader);
@@ -95,17 +82,17 @@ public class Editor extends JFrame
         }
         }
         );
+        
         scrollableTextArea.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);  
         scrollableTextArea.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);  
-  
         getContentPane().add(scrollableTextArea); 
 
-        Menu();
+        Menu(textArea, textField);
 
         
     }
 
-    public void Menu()
+    public void Menu(JTextArea textArea, JTextField textField)
     {
         JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);
@@ -115,12 +102,56 @@ public class Editor extends JFrame
 
         JMenuItem MenuLoad = new JMenuItem("Load");
         MenuLoad.setName("MenuLoad");
+        MenuLoad.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+            try
+            {   
+                Desktop desktop = Desktop.getDesktop();
+                String fileName;
+                fileName = textField.getText();
+
+                FileReader reader = new FileReader(fileName);
+                BufferedReader br = new BufferedReader(reader);
+                textArea.read(br, null);
+                br.close();
+                textArea.requestFocus();
+
+            }
+            catch(Exception e2) { 
+                textArea.setText("");
+                // FilenameField.setText("");
+            }
+        }
+        }
+        );
+
 
         JMenuItem MenuSave = new JMenuItem("Save");
         MenuSave.setName("MenuSave");
+        MenuSave.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+            try
+            {
+                String fileName;
+                fileName = textField.getText();
+                FileWriter writer = new FileWriter(fileName);
+                BufferedWriter bw = new BufferedWriter(writer);
+                textArea.write(bw);
+                bw.close();
+                textArea.requestFocus();
+            }
+            catch(Exception e2) { System.out.println(e2);}
+            }
+        }
+        );
 
         JMenuItem MenuExit = new JMenuItem("Exit");
         MenuExit.setName("MenuExit");
+        
 
         fileMenu.add(MenuLoad);
         fileMenu.add(MenuSave);
@@ -136,10 +167,7 @@ public class Editor extends JFrame
         }
         
         );
-
     }
-
-
 
     public static void main(String []argc)
     {

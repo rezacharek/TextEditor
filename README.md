@@ -15,7 +15,7 @@ All you have to do is to to execute it:
 ```python
 java Editor.java
 ```
-![TextEditor in usage](demo/demoTextEditor.gif)
+![TextEditor in usage](demo/demoTextEditor.gif=250x250)
 
 ## Contributing
 This is a personal project that I used to learn Java, so no contributions are expected but if you wish you may contribute.
